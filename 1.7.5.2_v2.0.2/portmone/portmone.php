@@ -291,7 +291,7 @@ if(!defined('_PS_VERSION_'))exit;
                         </div>
                       <label>' . $this->lang['company_key_title'] . ' <span style="color:red;">*<span/>' . '</label>
                         <div class="margin-form">
-                            <input type="text" size="33" maxlength="30" name="company_key" value="' . htmlentities(Tools::getValue('company_key', $this->company_key), ENT_COMPAT, 'UTF-8') . '" />
+                            <input type="text" size="33" maxlength="60" name="company_key" value="' . htmlentities(Tools::getValue('company_key', $this->company_key), ENT_COMPAT, 'UTF-8') . '" />
                             <p>'. $this->lang['company_key_description'] .'</p>
                         </div>    
                     <label>' . $this->lang['description_title'] . '</label>
@@ -453,7 +453,7 @@ if(!defined('_PS_VERSION_'))exit;
 
                 'shop_order_number' => ['name' => 'shop_order_number',
                     'type' => 'hidden',
-                    'value' => $cart->id .'_'. time(),
+                    'value' => $shop_order_number,
                 ],
 
                 'bill_amount' => ['name' => 'bill_amount',
