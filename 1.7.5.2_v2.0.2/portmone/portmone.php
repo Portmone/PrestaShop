@@ -94,8 +94,8 @@ if(!defined('_PS_VERSION_'))exit;
             'proxy_settings_title'              => $this->l('Настройки прокси'),
             'proxy_settings_port_description'   => $this->l('Порт'),
             'proxy_settings_adress_description' => $this->l('Адрес'),
-            'show_pay_button_title'             => $this->l('Показать кнопку оплаты Portmone.com'),
-            'show_pay_button_description'       => $this->l('При выборе Portmone.com из списка оплат, показывать кнопку оплаты. При ее использовании заказ в Админ панеле создается перед переходом пользователя на страницу Portmone.com для оплаты. Если проводить оплату стандартной кнопкой, заказ в админ панеле появляется уже после оплаты'),
+            // 'show_pay_button_title'             => $this->l('Показать кнопку оплаты Portmone.com'),
+            // 'show_pay_button_description'       => $this->l('При выборе Portmone.com из списка оплат, показывать кнопку оплаты. При ее использовании заказ в Админ панеле создается перед переходом пользователя на страницу Portmone.com для оплаты. Если проводить оплату стандартной кнопкой, заказ в админ панеле появляется уже после оплаты'),
             'yes'                               => $this->l('Да'),
             'no'                                => $this->l('Нет'),
             );
@@ -116,7 +116,7 @@ if(!defined('_PS_VERSION_'))exit;
                     'proxy',
                     'proxy_settings_port',
                     'proxy_settings_adress',
-                    'show_pay_button'
+                    // 'show_pay_button'
                 ));
 
             if (isset($config['payee_id']))             { $this->payee_id               = $config['payee_id']; }
@@ -130,7 +130,7 @@ if(!defined('_PS_VERSION_'))exit;
             if (isset($config['proxy']))                { $this->proxy                  = $config['proxy']; }
             if (isset($config['proxy_settings_port']))  { $this->proxy_settings_port    = $config['proxy_settings_port']; }
             if (isset($config['proxy_settings_adress'])){ $this->proxy_settings_adress  = $config['proxy_settings_adress']; }
-            if (isset($config['show_pay_button']))      { $this->show_pay_button        = $config['show_pay_button']; }
+            // if (isset($config['show_pay_button']))      { $this->show_pay_button        = $config['show_pay_button']; }
 
             parent::__construct();
             $this->displayName      = $this->lang['display_name'];
@@ -196,7 +196,7 @@ if(!defined('_PS_VERSION_'))exit;
                 && Configuration::deleteByName('proxy')
                 && Configuration::deleteByName('proxy_settings_port')
                 && Configuration::deleteByName('proxy_settings_adress')
-                && Configuration::deleteByName('show_pay_button')
+                // && Configuration::deleteByName('show_pay_button')
                 && Configuration::deleteByName('PORTMONE_PAID')
                 && Configuration::deleteByName('PORTMONE_PAID_BUT_NOT_VERIFIED')
                 && Configuration::deleteByName('PORTMONE_PREAUTH')
@@ -246,7 +246,7 @@ if(!defined('_PS_VERSION_'))exit;
                 Configuration::updateValue('proxy_settings_port', $_POST['proxy_settings_port']);
                 Configuration::updateValue('proxy_settings_adress', $_POST['proxy_settings_adress']);
                 Configuration::updateValue('preauth_flag', $_POST['preauth_flag']);
-                Configuration::updateValue('show_pay_button', $_POST['show_pay_button']);
+                // Configuration::updateValue('show_pay_button', $_POST['show_pay_button']);
             }
             $this->_html .= '<div class="bootstrap">
             <div class="alert alert-success">
@@ -307,7 +307,7 @@ if(!defined('_PS_VERSION_'))exit;
 
                         $this->_radioInForm('preauth_flag');
                         $this->_radioInForm('showlogo');
-                        $this->_radioInForm('show_pay_button');
+                        // $this->_radioInForm('show_pay_button');
                         $this->_radioInForm('proxy');
 
                     $this->_html .= '<label>' . $this->lang['proxy_settings_title'] . '</label>
@@ -329,7 +329,7 @@ if(!defined('_PS_VERSION_'))exit;
                 <h3> '.
                     $this->lang['description_modul1']
                 . '<br /> '.
-                    'License: Payment Card Industry Data Security Standard (PCI DSS) '. '<a target="_blank" href="https://www.portmone.com.ua/r3/uk/security/">License</a>'
+                    'License: Payment Card Industry Data Security Standard (PCI DSS) '. '<a target="_blank" href="https://www.portmone.com.ua/company#security">License</a>'
                 . '<br /> '.
                     $this->lang['description_modul5']
                 . '<br /> '.
@@ -337,9 +337,9 @@ if(!defined('_PS_VERSION_'))exit;
                 . '<br /> '.
                     $this->lang['description_modul2']
                 . '<br /> '.
-                    $this->lang['description_modul3'] . ' <a href="tel:+380442000902">+380 (44) 200 09 02</a>'
+                    $this->lang['description_modul3'] . ' <a href="tel:+380442000922">+380 (44) 200 09 22</a>'
                 . '<br /> '.
-                    $this->lang['description_modul4'] . ' <a href="mailto:support@portmone.com">support@portmone.com</a>'
+                    $this->lang['description_modul4'] . ' <a href="mailto:b2bsupport@portmone.me">b2bsupport@portmone.me</a>'
                 . '<h3>';
         }
 
@@ -533,7 +533,7 @@ if(!defined('_PS_VERSION_'))exit;
                     'description_user'  => Configuration::get('description_user'),
                     'exp_time'          => Configuration::get('exp_time'),
                     'showlogo'          => $showlogo_img,
-                    'show_pay_button'   => Configuration::get('show_pay_button'),
+                    'show_pay_button'   => 0, // Configuration::get('show_pay_button'),
                     'preauth_flag'      => $preauth_flag,
                     'spinner_url'       => Tools::getHttpHost(true) .$this->_path.$this->logo_img,
                     'cms_module_name'   => $cms_module_name,
@@ -568,7 +568,7 @@ if(!defined('_PS_VERSION_'))exit;
         private function _getLanguage() {
             global $cookie;
             $language       = Language::getIsoById(intval($cookie->id_lang));
-            $language       = (!in_array($language, array('ua', 'en', 'ru'))) ? 'ru' : $language;
+            $language       = (!in_array($language, array('ua', 'uk', 'en', 'ru'))) ? 'ru' : $language;
             return $language == 'ua' ? 'uk' : $language;
         }
 
